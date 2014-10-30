@@ -3,7 +3,7 @@
 
 angular.module('App')
 .controller('EditCtrl', function($scope, $location, $routeParams, appFirebase) {
-	$scope.project = appFirebase.$child($routeParams.projectId).asArray();
+	$scope.project = appFirebase.child($routeParams.projectId);
 });
 
 //function EditCtrl($scope, $location, $routeParams, angularFire, fbURL) {
