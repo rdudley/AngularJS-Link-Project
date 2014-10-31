@@ -1,14 +1,14 @@
- angular.module('App.services', ['firebase', 'App.config'])
+ angular.module('App.services', [])
 	
-	.factory('fb', ['FBURL', '$firebase', function(FBURL, $firebase) {
-		var ref = new Firebase(FBURL + "/links")
-		var Links = $firebase(ref).$asArray();
+	.factory('fb', ['fbutil', function(fbutil) {
+		
+		var Links = fbutil.syncArray("/links");
 			
 		var getLinks = function() {
 			return Links;	
 		}
 		
-		var getLink = function(id) {
+		var getLink = function(id) {			
 			return Links.$getRecord(id);
 		}
 		

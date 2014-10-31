@@ -1,0 +1,34 @@
+<div class="input-group input-group-lg">
+  <span class="input-group-addon"><i class="icon-search"></i> </span>
+  <input type="text" ng-model="search" class="form-control" placeholder="Search">
+</div>
+
+<br/>
+<a href="#/add" class="btn btn-primary"><i class="icon-plus-sign"></i> Add New Link</a>&nbsp;&nbsp;&nbsp;
+<button ng-click="predicate = 'name'; reverse=!reverse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Sort by Name</button>
+<button ng-click="predicate = 'rating.value'; reverse=!reverse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Sort by Rating</button>
+<button ng-click="predicate = 'description'; reverse=!reverse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Sort by Description</button>
+<br/><br/>
+<div class="well">
+  <table class="table table-striped table-hover">
+    <thead>
+    <tr>
+      <th>Link</th>
+      <th>Description</th>
+      <th>Rating</th>
+	  <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="project in Projects | filter:search | orderBy:predicate:reverse">
+      <td><a href="{{project.site}}" target="_blank">{{project.name}}</a></td>
+      <td>{{project.description}}</td>
+	  <td>{{project.rating.name}}</td>
+      <td>
+        <a href="#/edit/{{project.$id}}"><i class="icon-pencil"></i></a>&nbsp;&nbsp;
+		<a href="#/delete/{{project.$id}}" href="#"><i class="icon-trash"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

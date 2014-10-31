@@ -6,5 +6,6 @@ angular.module('App', [
 	'App.config',
 	'App.controllers',
 	'App.routes',
-	'App.services'
+	'App.services',
+	'firebase.utils'
 ]);
