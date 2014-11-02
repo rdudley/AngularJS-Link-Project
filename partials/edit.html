@@ -1,31 +1,31 @@
-<div>
+<div class="well">
 <form name="myForm">
-  <div class="control-group" ng-class="{error: myForm.name.$invalid}">
-    <label>Name</label>
-    <input type="text" name="name" ng-model="project.name" required>
-    <span ng-show="myForm.name.$error.required" class="help-inline">
+  <div class="form-group" ng-class="{error: myForm.name.$invalid}">
+    <label>Name</label><span ng-show="myForm.name.$error.required" class="help-inline">
         Required</span>
+    <input class="form-control" type="text" name="name" ng-model="linkDetail.name" required>
+    
   </div>
  
-  <div class="control-group" ng-class="{error: myForm.site.$invalid}">
-    <label>Website</label>
-    <input type="url" name="site" ng-model="project.site" required>
-    <span ng-show="myForm.site.$error.required" class="help-inline">
+  <div class="form-group" ng-class="{error: myForm.site.$invalid}">
+    <label>Website</label><span ng-show="myForm.site.$error.required" class="help-inline">
         Required</span>
     <span ng-show="myForm.site.$error.url" class="help-inline">
         Not a URL</span>
+    <input class="form-control" type="url" name="site" ng-model="linkDetail.site" required>
+    
   </div>
-		<div class="control-group">
-		<label>Rating</label>&nbsp;&nbsp;&nbsp;{{project.rating.name}}&nbsp;&nbsp;&nbsp;
+		<div class="form-group">
+		<label>Current Rating</label>
+		<p><span class="lead"><strong>{{linkDetail.rating.name}}</strong></span> ({{linkDetail.rating.value}})</p>
 
-			<select name="rating" required ng-model="project.rating" ng-options="rating.name for rating in Ratings">
+			<select class="form-control" name="rating" required ng-model="linkDetail.rating" ng-options="rating.name for rating in Ratings">
 				<option value="">Change this link's rating...</option>
 			</select>
 			<span ng-show="myForm.rating.$error.required" class="help-inline">Required</span></div> 
   <label>Description</label>
-  <textarea name="description" ng-model="project.description"></textarea>
- 
-  <br>
+  <textarea class="form-control" name="description" ng-model="linkDetail.description"></textarea>
+  <p>&nbsp;</p>
   <button ng-click="done()" ng-disabled="isClean() || myForm.$invalid" class="btn btn-primary">Done</button>
 </form>
 </div>

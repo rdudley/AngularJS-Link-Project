@@ -4,11 +4,30 @@ angular.module('App.controllers', [])
 
 .controller('ListCtrl', ['$rootScope', '$scope', 'fb', 'Ratings', function($rootScope, $scope, fb, Ratings) {
 	
-	$rootScope.section = "A distinctive and opinionated selection";
+	$rootScope.section = "A distinctive and opinionated collection";
 	
-	$scope.Projects = fb.getLinks();
+	$scope.linkCountRef = fb.linkCountRef();
+	
+	$scope.Links = fb.getLinks();
+	
+	$scope.Links.$loaded().then(function(l) {
+		$scope.Links === l;
+		updateLinkCount();
+	});
 	
 	$scope.predicate = 'name';
+	
+	$scope.Links.$watch(function(e) {
+		if (e.event == "child_added" || e.event == "child_removed") {
+			updateLinkCount();
+		}
+	});
+	
+	function updateLinkCount() {
+		$scope.linkCount = $scope.Links.length;
+		$scope.linkCountRef.$value = $scope.linkCount;
+		$scope.linkCountRef.$save();
+	}
 }])
 
 .controller('AddCtrl', ['$rootScope', '$scope', '$location', 'fb', 'Ratings', function($rootScope, $scope, $location, fb, Ratings) {
@@ -17,7 +36,7 @@ angular.module('App.controllers', [])
 	
 	$scope.Ratings = Ratings;
 	
-	// Controller functions
+	// Add Controller functions
 	$scope.save = function() {
 		fb.addLink($scope.project);		
 		$location.path('/');
@@ -35,11 +54,10 @@ angular.module('App.controllers', [])
 	$scope.Ratings = Ratings;
 	
 	// For this controller, bypass the fb service, and instead create a 3-way data bind between $scope.project and Firebase
-	// No save button required, just edit away and changes are automagically updated on Firebase and vice versa
-	
-	$scope.project = fbutil.syncObject("/links/" + $routeParams.projectId).$bindTo($scope, "project");
+	// No save button required, just edit away and changes are automagically updated on Firebase
+	$scope.linkDetail = fbutil.syncObject("/links/" + $routeParams.projectId).$bindTo($scope, "linkDetail");
 		
-	// Controller functions
+	// Edit Controller functions
 	$scope.done = function() {
 		$location.path('/');
     };
@@ -52,7 +70,7 @@ angular.module('App.controllers', [])
 	
 	$scope.project = fb.getLink($routeParams.projectId);	
 		
-	// Controller functions
+	// Delete Controller functions
 	$scope.cancel = function() {
 		$location.path('/');
     };

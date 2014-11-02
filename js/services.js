@@ -3,6 +3,8 @@
 	.factory('fb', ['fbutil', function(fbutil) {
 		
 		var Links = fbutil.syncArray("/links");
+		
+		var lcRef = fbutil.syncObject("linkCount");
 			
 		var getLinks = function() {
 			return Links;	
@@ -24,12 +26,16 @@
 			Links.$add(i);
 		}
 		
+		var linkCountRef = function() {
+			return lcRef;
+		}
 		return {
 			getLinks : getLinks,
 			getLink : getLink,
 			removeLink : removeLink,
 			updateLink : updateLink,
-			addLink : addLink			
+			addLink : addLink,
+			linkCountRef : linkCountRef			
 		}
 	}
 	

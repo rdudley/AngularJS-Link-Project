@@ -4,29 +4,29 @@
 </div>
 
 <br/>
-<a href="#/add" class="btn btn-primary"><i class="icon-plus-sign"></i> Add New Link</a>&nbsp;&nbsp;&nbsp;
-<button ng-click="predicate = 'name'; reverse=!reverse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Sort by Name</button>
-<button ng-click="predicate = 'rating.value'; reverse=!reverse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Sort by Rating</button>
-<button ng-click="predicate = 'description'; reverse=!reverse" type="button" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Sort by Description</button>
-<br/><br/>
+
+<div class="row">
+<div class="col-md-6"><a href="#/add" class="btn btn-primary text-left"><span class="glyphicon glyphicon-plus"></span> Add New Link</a></div>
+<div class="col-md-6"><p class="lead text-right">Links in Collection: <span class="label label-info">{{linkCountRef.$value}}</span></p></div>
+</div>
 <div class="well">
   <table class="table table-striped table-hover">
     <thead>
     <tr>
-      <th>Link</th>
-      <th>Description</th>
-      <th>Rating</th>
+      <th>Link&nbsp;&nbsp;<small><a ng-click="predicate = 'name'; reverse=!reverse" href=""><span class="glyphicon glyphicon-sort"></span></a></small></th>
+      <th>Description&nbsp;&nbsp;<small><a ng-click="predicate = 'description'; reverse=!reverse" href=""><span class="glyphicon glyphicon-sort"></span></a></small></th>
+	  <th>Rating&nbsp;&nbsp;<small><a ng-click="predicate = 'rating.value'; reverse=!reverse" href=""><span class="glyphicon glyphicon-sort"></span></a></small></th>
 	  <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="project in Projects | filter:search | orderBy:predicate:reverse">
-      <td><a href="{{project.site}}" target="_blank">{{project.name}}</a></td>
-      <td>{{project.description}}</td>
-	  <td>{{project.rating.name}}</td>
+    <tr ng-repeat="link in Links | filter:search | orderBy:predicate:reverse">
+      <td><a href="{{link.site}}" target="_blank">{{link.name}}</a></td>
+      <td>{{link.description}}</td>
+	  <td>{{link.rating.name}} <small>({{link.rating.value}})</small> <span style="color: #E31316;" ng-show="link.rating.value == 5" class="glyphicon glyphicon-heart"></span><span ng-show="link.rating.value < 3" class="glyphicon glyphicon-thumbs-down"></span></td>
       <td>
-        <a href="#/edit/{{project.$id}}"><i class="icon-pencil"></i></a>&nbsp;&nbsp;
-		<a href="#/delete/{{project.$id}}" href="#"><i class="icon-trash"></i></a>
+        <a href="#/edit/{{link.$id}}"><i class="icon-pencil"></i></a>&nbsp;&nbsp;
+		<a href="#/delete/{{link.$id}}" href="#"><i class="icon-trash"></i></a>
       </td>
     </tr>
     </tbody>
